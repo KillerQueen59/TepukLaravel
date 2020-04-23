@@ -29,39 +29,6 @@ class CreatePupukTable extends Migration
 
         });
 
-        Schema::connection('mysql')->create('orders',function(Blueprint $table){
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('pupuk_id');
-            $table->date('order_date');
-            $table->integer('order_qty');
-
-        //foreign key 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('pupuk_id')->references('id')->on('pupuks');
-            
-        });
-
-        Schema::connection('mysql')->create('payments',function(Blueprint $table){
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('order_id');
-            $table->date('payment_date');
-            $table->integer('payment_ammount');
-
-        //foreign key 
-            $table->foreign('order_id')->references('id')->on('orders');
-
-        });
-
-        Schema::connection('mysql')->create('shippings',function(Blueprint $table){
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('payment_id');
-            $table->date('shipping_date');
-            $table->time('shipping_time');
-
-        //foreign key 
-            $table->foreign('payment_id')->references('id')->on('payments');
-        });
     }
 
     /**
@@ -72,8 +39,6 @@ class CreatePupukTable extends Migration
     public function down()
     {
         Schema::dropIfExists('pupuks');
-        Schema::dropIfExists('orders');
-        Schema::dropIfExists('payments');
         Schema::dropIfExists('shippings');
     }
 }
