@@ -15,12 +15,11 @@ class CreatePaymentTable extends Migration
     {
         Schema::connection('mysql')->create('payments',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('order_id');
-            $table->date('payment_date');
             $table->integer('payment_ammount');
+            $table->string('payment_code');
+            $table->timestamps();
 
         //foreign key 
-            $table->foreign('order_id')->references('id')->on('orders');
 
         });
     }

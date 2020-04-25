@@ -10,19 +10,17 @@ class PaymentModel extends Model{
     protected $table = "payments";
 
     protected $fillable = [
-        'user_id', 'pupuk_id', 'status','order_qty','total'
+        'payment_ammount'
     ];
 
     protected $casts = [
-        'pupuk_id' => 'int',
-        'order_qty' => 'int',
-        'total' => 'int'
+        'payment_ammount' => 'int'
     ];
     public function order(){
         return $this->belongsToMany(OrderModel::class);
     }
 
     public function shipping(){
-        return $this->hasOne(Shipping::class);
+        return $this->hasOne(ShippingModel::class);
     }
 }

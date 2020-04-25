@@ -44,3 +44,8 @@ Route::post('payments/create','Api\PaymentController@create')->middleware('jwtAu
 Route::post('payments/delete','Api\PaymentController@delete')->middleware('jwtAuth');
 Route::post('payments/update','Api\PaymentController@update')->middleware('jwtAuth');
 Route::get('payments','Api\PaymentController@payments')->middleware('jwtAuth');
+
+//Shipping
+Route::post('shippings/create','Api\ShippingController@create')->middleware('jwtAuth');
+Route::post('shippings/update','Api\ShippingController@update')->middleware('jwtAuth');
+Route::get('shippings','Api\ShippingController@shippings')->middleware('jwtAuth');

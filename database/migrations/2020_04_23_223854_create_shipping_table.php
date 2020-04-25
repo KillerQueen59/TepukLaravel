@@ -16,8 +16,9 @@ class CreateShippingTable extends Migration
         Schema::connection('mysql')->create('shippings',function(Blueprint $table){
             $table->bigIncrements('id');
             $table->unsignedBigInteger('payment_id');
-            $table->date('shipping_date');
-            $table->time('shipping_time');
+            $table->string('shipping_status');
+            $table->integer('shipping_time');
+            $table->timestamps();
 
         //foreign key 
             $table->foreign('payment_id')->references('id')->on('payments');

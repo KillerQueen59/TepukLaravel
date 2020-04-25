@@ -19,7 +19,7 @@ class OrderController extends Controller{
         $order->pupuk_id = $request->pupuk_id;
         $order->order_qty = $request->order_qty;
         $order->total =  $request->order_qty*$request->harga;
-        $order->status = $request->status;
+        $order->status = 'pending';
         $order->user;
         $order->pupuk;
         $order->save();
