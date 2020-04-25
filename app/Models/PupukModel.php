@@ -18,4 +18,12 @@ class PupukModel extends Model
         'foto_pupuk'
     ];
 
+    protected $casts = [
+        'harga_pupuk' => 'int'
+    ];
+    
+    public function orders(){
+        return $this->hasMany(OrderModel::class);
+    }
+
 }

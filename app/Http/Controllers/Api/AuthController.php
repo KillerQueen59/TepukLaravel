@@ -37,6 +37,7 @@ class AuthController extends Controller{
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = $encyptedPass;
+            $user->address = $request->address;
             $user->save();
             return $this->login($request);
         }

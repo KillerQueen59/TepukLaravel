@@ -17,8 +17,10 @@ class CreateOrderTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pupuk_id');
-            $table->date('order_date');
             $table->integer('order_qty');
+            $table->integer('total');
+            $table->string('status');
+            $table->timestamps();
 
         //foreign key 
             $table->foreign('user_id')->references('id')->on('users');

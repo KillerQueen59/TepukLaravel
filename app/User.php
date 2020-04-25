@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Models\OrderModel;
 
 class User extends Authenticatable implements JWTSubject{
     use Notifiable;
@@ -16,7 +17,7 @@ class User extends Authenticatable implements JWTSubject{
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','address',
     ];
 
     /**
@@ -44,5 +45,10 @@ class User extends Authenticatable implements JWTSubject{
     public function getJWTCustomClaims():array{
         return [];
     }
+
+    public function orders(){
+        return $this->hasMany(OrderModel::class);
+    }
+    
 }
  

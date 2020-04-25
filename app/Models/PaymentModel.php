@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class OrderModel extends Model{
+class PaymentModel extends Model{
 
-    protected $table = "orders";
+    protected $table = "payments";
 
     protected $fillable = [
         'user_id', 'pupuk_id', 'status','order_qty','total'
@@ -18,16 +18,11 @@ class OrderModel extends Model{
         'order_qty' => 'int',
         'total' => 'int'
     ];
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function order(){
+        return $this->belongsToMany(OrderModel::class);
     }
 
-    public function pupuk(){
-        return $this->belongsTo(PupukModel::class);
+    public function shipping(){
+        return $this->hasOne(Shipping::class);
     }
-
-    public function payment(){
-        return $this->hasOne(PaymentModel::class);
-    }
-
 }
