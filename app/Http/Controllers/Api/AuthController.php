@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller{
     
     public function login(Request $request){
-        $creds = $request->only(['email','password']);
+        $creds = $request->only(['username','password']);
 
         if(!$token=auth()->attempt($creds)){
             return response()->json([
@@ -35,9 +35,11 @@ class AuthController extends Controller{
 
         try{
             $user->name = $request->name;
+            $user->username = $request->username;
             $user->email = $request->email;
             $user->password = $encyptedPass;
             $user->address = $request->address;
+            $user->phonenumber = $request->phonenumber;
             $user->save();
             return $this->login($request);
         }
