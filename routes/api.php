@@ -21,14 +21,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //User
 Route::post('login','Api\AuthController@login');
-Route::post('register','Api\AuthController@register');
+Route::post('register1','Api\AuthController@register1');
+Route::post('register2','Api\AuthController@register2');
 Route::get('logout','Api\AuthController@logout');
 
 //Pupuk
 Route::get('pupuk','Api\PupukController@pupuk');
 Route::get('pupuk/{id}','Api\PupukController@pupukByID');
-Route::get('pupuk/organik','Api\PupukController@pupukByOrganik');
-Route::get('pupuk/anorganik','Api\PupukController@pupukByAnorganik');
+Route::get('organik','Api\PupukController@organik');
+Route::get('anorganik','Api\PupukController@anorganik');
 Route::post('pupuk/create','Api\PupukController@pupukSave');
 Route::post('pupuk/update','Api\PupukController@pupukUpdate');
 Route::post('pupuk/delete','Api\PupukController@pupukDelete');

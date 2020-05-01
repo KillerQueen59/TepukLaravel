@@ -18,6 +18,7 @@ class CreateShippingTable extends Migration
             $table->unsignedBigInteger('payment_id');
             $table->string('shipping_status');
             $table->integer('shipping_time');
+            $table->string('shipping_kurir');
             $table->timestamps();
 
         //foreign key 

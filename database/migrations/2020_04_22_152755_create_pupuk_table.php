@@ -25,7 +25,7 @@ class CreatePupukTable extends Migration
             $table->text('deskripsi_pupuk');
             $table->text('komposisi_pupuk');
             $table->integer('harga_pupuk');
-            $table->string('foto_pupuk');
+            $table->string('foto_pupuk')->default('');
 
         });
 

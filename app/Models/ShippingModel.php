@@ -8,11 +8,12 @@ class ShippingModel extends Model{
     protected $table = "shippings";
 
     protected $fillable = [
-        'shipping_time','shipping_status'
+        'shipping_time','shipping_status','shipping_kurir'
     ];
 
     protected $casts = [
-        'shipping_time' => 'int'
+        'shipping_time' => 'int',
+        'payment_id' => 'int'
     ];
 
     public function payment(){

@@ -12,22 +12,20 @@ class PupukController extends Controller
     public function pupuk(){
         return response()->json(PupukModel::get(),200);
     }
-    public function pupukByOrganik(){
+    public function organik(){
         $pupuk = PupukModel::where(['jenis_pupuk'=>'organik'])->get();
-        foreach($pupuk as $p){
-        }
         return response()->json([
-            'success'=>true,
+            'success'=> true,
             'pupuk'=>$pupuk
         ]);
     }
-    public function pupukByAnorganik(){
+    public function anorganik(){
         $pupuk = PupukModel::where(['jenis_pupuk'=>'anorganik'])->get();
         return response()->json([
-            'success'=>true,
+            'success'=> true,
             'pupuk'=>$pupuk
-        ]);
-    }
+        ]);    }
+    
     public function pupukByID ($pupuk_id){
         return response()->json(PupukModel::find($pupuk_id),200);
     }
@@ -40,8 +38,24 @@ class PupukController extends Controller
             'message' => 'pupuk updated'
         ]);    }
     public function pupukSave(Request $request){
-        $pupuk = PupukModel::create($request->all());
-        return response()->json($pupuk,201);
+        $pupuk = new PupukModel;
+        $pupuk->nama_pupuk = $request->nama_pupuk; 
+        $pupuk->jenis_pupuk = $request->jenis_pupuk; 
+        $pupuk->deskripsi_pupuk = $request->deskripsi_pupuk; 
+        $pupuk->komposisi_pupuk = $request->komposisi_pupuk; 
+        $pupuk->harga_pupuk = $request->harga_pupuk; 
+        if($request->foto_pupuk != ''){
+            $extension = $request->foto_pupuk->getClientOriginalExtension();
+            $foto = time().$extension;
+            file_put_contents('storage/pupuk/'.$foto,base64_decode($request->foto_pupuk));
+            $pupuk->foto_pupuk = $foto;
+        }
+        $pupuk->save();
+        return response()->json([
+            'success'=>true,
+            'pupuk'=>$pupuk
+        ]);
+
     }
     public function pupukDelete(Request $request){
         $pupuk = PupukModel::find($request->id);

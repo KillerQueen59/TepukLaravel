@@ -18,48 +18,63 @@ class AuthController extends Controller{
 
         if(!$token=auth()->attempt($creds)){
             return response()->json([
-                'succes'=>false,
+                'success'=>false,
                 'message' => 'invalid credintials'
             ]);
         }
         return response()->json([
-            'succes'=>true,
+            'success'=>true,
             'token'=>$token,
             'user'=>Auth::user()
         ]);
     }
-    public function register(Request $request){
+    public function register1(Request $request){
         $encyptedPass = Hash::make($request->password);
 
         $user = new User;
 
         try{
-            $user->name = $request->name;
             $user->username = $request->username;
             $user->email = $request->email;
             $user->password = $encyptedPass;
-            $user->address = $request->address;
-            $user->phonenumber = $request->phonenumber;
             $user->save();
             return $this->login($request);
         }
         catch(Exception $e){
             return response()->json([
-                'succes'=>false,
+                'success'=>false,
                 'message'=> ''.$e
             ]); 
         }
     }
+
+    public function register2(Request $request){
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->name;
+        $user->address = $request->address;
+        $user->phonenumber = $request->phonenumber;
+        $user->update();
+        
+        return response()->json([
+            'success'=> true,
+            'user'=>$user
+        ]);
+       
+    }
+
+        
+    
+
     public function logout(Request $request){// need token 
         try{
             JWTAuth::invalidate(JWTAuth::parseToken($request->token));
             return response()->json([
-                'succes'  => true, 
+                'success'  => true, 
                 'message' => 'logout succes'
             ]);
         }catch(Exception $e){
             return response()->json([
-                'succes' => false,
+                'success' => false,
                 'message' => ''.$e
             ]);
         }

@@ -12,11 +12,12 @@ class PaymentController extends Controller{
     public function create(Request $request){
         $payment = new PaymentModel;
         $sum = 0;
-        $orders = OrderModel::where(['status'=>'pending','user_id'=> $request->id])->get();
+        $orders = OrderModel::where(['status'=>'pending','user_id'=> Auth::user()->id])->get();
         foreach($orders as $o){
             $o->status = 'lunas';
             $o->update();
             $sum = $sum + $o->total;
+            $payment->order;
         }
         $payment->payment_ammount = $sum;
         if($sum==0){
@@ -26,7 +27,6 @@ class PaymentController extends Controller{
             ]);
         }else{
             $payment->payment_code = '#'.str_random(6);
-            $payment->order;
             $payment->save();
 
             return response()->json([
@@ -36,7 +36,7 @@ class PaymentController extends Controller{
         }
     }
     public function payments(Request $request){
-        $orders = OrderModel::where(['status'=>'lunas','user_id'=> $request->id])->get();
+        $orders = OrderModel::where(['status'=>'lunas','user_id'=> Auth::user()->id])->get();
         $payments = PaymentModel::get();
         foreach($orders as $order){
             $order->user;
